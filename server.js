@@ -5,7 +5,13 @@ const prompts = require('./prompts');
 const db = require('./db');
 require('console.table');
 
-//TODO: async function viewAllTables(); that returns all the info from the DB, this table should be called upon init(); with Logo  
+//TODO: async function viewAllTables(); that returns all the info from the DB, this table should be called upon init(); with Logo
+async function viewAllTables() {
+    const titles = await db.viewAllTables().catch(err => console.log(err));
+    console.log('\n');
+    console.table(titles);
+    mainPrompt();  
+}  
 
 
 //async function calls database and returns a console log of All Employees in a table format then cycles back to first prompt
@@ -16,21 +22,21 @@ async function viewAllEmployees() {
     mainPrompt();
 };
 //async function calls database and returns a console log of All Employees By Team in a table format then cycles back to first prompt
-async function viewAllTeams() {
-    const titles = await db.viewAllTeams().catch(err => console.log(err));
+async function viewAllByTeams() {
+    const titles = await db.viewAllByTeams().catch(err => console.log(err));
     console.log('\n');
     console.table(titles);
     mainPrompt();
 };
 //async function calls database and returns a console log of All Employees By Role in a table format then cycles back to first prompt
-async function viewAllRoles() {
-    const titles = await db.viewAllRoles().catch(err => console.log(err));
+async function viewAllByRoles() {
+    const titles = await db.viewAllByRoles().catch(err => console.log(err));
     console.log('\n');
     console.table(titles);
     mainPrompt();
 };
 
-//updateTeam(); prompt them for new info user wants to update. then updates the db table
+//updateRole(); prompt them for new info user wants to update. then updates the db table
 //addTeam(); 'INSERT INTO team (team)'
 //addRole();
 //addEmployee();
@@ -44,18 +50,34 @@ async function mainPrompt() {
             viewAllEmployees();
             break;
         case 'View all employees by team':
-            viewAllTeams();
+            viewAllByTeams();
             break;
         case 'View all employees by role':
-            viewAllRoles();
+            viewAllByRoles();
             break;
+        case 'Add department':
+            //function
+            break;
+        case 'Add role':
+            //function
+            break;
+        case 'Add employee':
+            //function
+            break;
+        case 'Update employee role':
+            //function
+            break;
+        case 'Quit':
+            break;
+            
         
-    }
+    };
 }
 
 
 //async function init(); with await ends with calling mainPrompts(); 
 function init() {
+    viewAllTables();
     mainPrompt();
 }
 
