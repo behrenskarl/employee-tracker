@@ -28,11 +28,10 @@ class DB {
             role.id;
         `
         );        
-    }
+    };
 
 
     //viewAllTeams() = returns DB with teams 
-    //TODO: change sql syntax to return proper data
     viewAllByTeams() {
         return this.connection.query(
             `
@@ -53,7 +52,7 @@ class DB {
         `
         );
 
-    }
+    };
     
     //more functions for calling different data
    
@@ -64,9 +63,9 @@ class DB {
             `
         SELECT
             role.id, 
+            role.title AS Role,
             employee.first_name AS First_Name, 
             employee.last_name AS Last_Name,
-            role.title AS Role,
             role.salary AS Salary,
             team.name AS Team
         FROM 
@@ -79,7 +78,7 @@ class DB {
             role.title;
         `
         );
-    }
+    };
 
 
     // viewAllEmployees();
@@ -98,9 +97,21 @@ class DB {
         ORDER BY 
             employee.id;
         `
-        )
-    }
-
+        );
+    };
+    //Displays Teams by order of Team ID
+    viewOnlyTeams() {
+        return this.connection.query(
+            `SELECT * FROM team ORDER BY team.id`
+        );
+    };
+    viewOnlyRoles() {
+        return this.connection.query(
+            `SELECT DISTINCT role.title FROM role`
+        );
+    };
+    //addEmployee();
+    //NEEDS TO BE ABLE TO ADD PLAYER NAME, SALARY, LIST CHOICES FOR TEAM AND ROLE
     
 
 
