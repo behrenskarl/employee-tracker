@@ -1,6 +1,16 @@
 //route to server.js and write prompts here for nodejs
 
 const inquirer = require('inquirer');
+const db = require('./db');
+
+async function viewOnlyTeams() {
+    const titles = await db.viewOnlyTeams().catch(err => console.log(err));
+    return titles 
+};
+async function viewOnlyRoles() {
+    const titles = await db.viewOnlyRoles().catch(err => console.log(err));
+    return titles 
+};
 
 module.exports = {
     mainPrompt: [
@@ -33,6 +43,11 @@ module.exports = {
         type: 'input',
         message: 'Input a new role title.',
         name: 'newRoleTitle',
+        },
+        {
+        type: 'input',
+        message: 'Input id of team.',
+        name: 'newRoleTeamID'
         }
     ],
     //LIST CHOICES FOR TEAMS AND ROLES (FUNCTION?)
@@ -48,14 +63,27 @@ module.exports = {
         name: 'newLastName'
         },
         {
-        type: 'input',
-        message: 'Input new employee role ID.',
-        name: 'newRoleID'
+        type: 'list',
+        message: 'What is the new employees role?',
+        name: 'newRole',
+        choices: [
+            //function?
+            
+        ]
+        },
+        {
+        type: 'list',
+        message: 'What is the new employees team?',
+        name: 'newTeam',
+        choice: [
+            //function?
+            
+        ]
         },
         {
         type: 'input',
-        message: 'Input new employee Manager ID',
-        name: 'newManagerID'
+        message: 'Input new employee salary.',
+        name: 'newSalary'
         }
     ],
     updateRolePrompt: [

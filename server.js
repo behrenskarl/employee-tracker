@@ -41,6 +41,7 @@ async function viewOnlyTeams() {
     const titles = await db.viewOnlyTeams().catch(err => console.log(err));
     console.log('\n');
     console.table(titles);
+    return titles
 };
 
 // FUNCTION RETURNS DB TABLE OF ROLES 
@@ -48,14 +49,16 @@ async function viewOnlyRoles() {
     const titles = await db.viewOnlyRoles().catch(err => console.log(err));
     console.log('\n');
     console.table(titles);
+    return titles 
 };
 
 //updateRole(); prompt them for new info user wants to update. then updates the db table
-function updateEmployeeRole() {
-    let query = connection.query(
-        'UPDATE role SET ? WHERE ?'
-    )
-}
+// function updateEmployeeRole() {
+//     let query = connection.query(
+//         'UPDATE role SET ? WHERE ?'
+//     )
+// }
+
 //addTeam(); 'INSERT INTO team (team)'
 async function addNewTeam() { 
     inquirer.prompt(prompts.newTeamPrompt).then((response) => {
@@ -83,9 +86,9 @@ async function addNewRole() {
         connection.query(
         `
         INSERT INTO role
-            (title)
+            (title, team_id)
         VALUES
-            ('${response.newRoleTitle}');
+            ('${response.newRoleTitle}', ${response.newRoleTeamID});
         `
         );
         console.log('\n');
@@ -98,6 +101,38 @@ async function addNewRole() {
 
 //addEmployee();
 //NEEDS TO BE ABLE TO ADD PLAYER NAME, SALARY, LIST CHOICES FOR TEAM AND ROLE
+async function addNewEmployee() {
+    const roles = await viewOnlyRoles();
+    const teams = await viewOnlyTeams();
+    prompts.newEmployeePrompt[2].choices = roles.map((role, index) => ({ name: role.title, value: {id: index+1, name: role.title } }));
+    prompts.newEmployeePrompt[3].choices = teams.map(team => ({ name: team.name, value: team.id }));
+    inquirer.prompt(prompts.newEmployeePrompt).then((response) => {
+
+        connection.query(
+            ` 
+            INSERT INTO employee
+                (first_name, last_name, salary, role_id, manager_id)
+            VALUES
+                ('${response.newFirstName}', '${response.newLastName}',  ${response.newSalary}, ${response.newRole.id}, 1);
+            `
+
+            );            
+        connection.query(
+            ` 
+            INSERT INTO role
+                (title, team_id)
+            VALUES 
+                ('${response.newRole.name}', ${response.newTeam});
+            `
+        );
+        console.log('\n');
+        console.log("New employee added successfully.");
+        console.log('\n');  
+
+        return mainPrompt();
+    });
+};
+
 
 //mainPrompt(); function code here: switch cases and inquirer.prompt(prompts.question1); viewAllTeams(); would be called here based on case
 async function mainPrompt() {
@@ -127,6 +162,8 @@ async function mainPrompt() {
             break;
         case 'Add employee':
             //function
+            addNewEmployee();
+
             break;
         case 'Update employee role':
             updateEmployeeRole();

@@ -16,7 +16,7 @@ class DB {
             employee.first_name AS First_Name, 
             employee.last_name AS Last_Name,
             role.title AS Role,
-            role.salary AS Salary,
+            employee.salary AS Salary,
             team.name AS Team
         FROM 
             employee
@@ -66,7 +66,7 @@ class DB {
             role.title AS Role,
             employee.first_name AS First_Name, 
             employee.last_name AS Last_Name,
-            role.salary AS Salary,
+            employee.salary AS Salary,
             team.name AS Team
         FROM 
             employee
