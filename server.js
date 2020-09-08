@@ -53,11 +53,22 @@ async function viewOnlyRoles() {
 };
 
 //updateRole(); prompt them for new info user wants to update. then updates the db table
-// function updateEmployeeRole() {
-//     let query = connection.query(
-//         'UPDATE role SET ? WHERE ?'
-//     )
-// }
+function updateEmployeeRole() {
+    inquirer.prompt(prompts.updateRolePrompt).then((response) => {
+        connection.query(
+            `
+            UPDATE employee
+            SET role_id = '${response.updatedRoleID}'
+            WHERE employee.id = '${response.chosenID}';
+            `
+        );
+        console.log('\n');
+        console.log("Updated role successfully.");
+        console.log('\n');  
+        
+        return mainPrompt();
+    });
+};
 
 //addTeam(); 'INSERT INTO team (team)'
 async function addNewTeam() { 
