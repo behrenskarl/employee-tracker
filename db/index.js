@@ -5,9 +5,6 @@ class DB {
     constructor(connection) {
         this.connection = connection;
     }
-     
-
-    //viewAllTables(); = returns a query to show all data from the DB upon init(); in server.js
     viewAllTables() {
         return this.connection.query(
             `
@@ -29,9 +26,6 @@ class DB {
         `
         );        
     };
-
-
-    //viewAllTeams() = returns DB with teams 
     viewAllByTeams() {
         return this.connection.query(
             `
@@ -53,15 +47,10 @@ class DB {
         );
 
     };
-    
-    //more functions for calling different data
-   
-   
-   //viewAllRoles(); = return a query from the DB with all the roles
     viewAllByRoles() {
         return this.connection.query(
             `
-        SELECT
+            SELECT
             role.id, 
             role.title AS Role,
             employee.first_name AS First_Name, 
@@ -72,16 +61,13 @@ class DB {
             employee
         LEFT JOIN
             role ON employee.id = role.id
-		JOIN
+		LEFT JOIN
 			team ON role.team_id = team.id
         ORDER BY 
-            role.title;
+            employee.role_id;
         `
         );
     };
-
-
-    // viewAllEmployees();
     viewAllEmployees() {
         return this.connection.query(
             `
@@ -93,13 +79,12 @@ class DB {
         FROM 
             employee
         LEFT JOIN
-            role ON employee.role_id = role.id
+            role ON employee.id = role.id
         ORDER BY 
             employee.id;
         `
         );
     };
-    //Displays Teams by order of Team ID
     viewOnlyTeams() {
         return this.connection.query(
             `SELECT * FROM team ORDER BY team.id`
@@ -107,26 +92,19 @@ class DB {
     };
     viewOnlyRoles() {
         return this.connection.query(
-            `SELECT DISTINCT role.title FROM role`
+            `SELECT DISTINCT title FROM role`
         );
     };
-    //addEmployee();
-    //NEEDS TO BE ABLE TO ADD PLAYER NAME, SALARY, LIST CHOICES FOR TEAM AND ROLE
-    
-
-
+    updateEmployeeRole(employeeID, roleID) {
+        return this.connection.query(
+            `
+            UPDATE employee
+            SET role_id = ? 
+            WHERE employee.id = ?;
+            `,[employeeID, roleID]
+        );
+    };
 }
 
 const db = new DB (connection)
 module.exports = db;
-
-
-//psuedo code 
-
-    //TESTS QUERY RETURN
-
-        // return this.connection.query('SELECT * FROM team')
-        // .then(teams => {
-        //     console.log(teams);
-        //     return teams 
-        // })

@@ -39,38 +39,3 @@ VALUES
     ('Michael', 'Porter Jr.', 3300000, 3, 5),
     ('Mike', 'Malone', 2500000, 4, 6);
 
-
-
-
-
-
-
-
-
---PSUEDO CODE--
-    --VALUES--
-    -- ('Pacers Shooting Guard', 21000000, 1),
-    -- ('Pacers Center', 20000000, 1),
-    -- ('Pacers Small Forward', 10500000, 1),
-    -- ('Pacers Coach', 4000000, 1),
-    -- ('Lakers Shooting Guard', 300000, 2),
-    -- ('Lakers Center', 25500000, 2),
-    -- ('Lakers Small Forward', 38000000, 2),
-    -- ('Lakers Coach', 4000000, 2),
-    -- ('Nuggets Point Guard', 4500000, 3),
-    -- ('Nuggets Center', 26000000, 3),
-    -- ('Nuggets Small Forward', 3300000, 3),
-    -- ('Nuggets Coach', 2500000, 3);
-
-    -- ('Guard', 21000000, 1),
-    -- ('Center', 20000000, 1),
-    -- ('Forward', 10500000, 1),
-    -- ('Coach', 4000000, 1),
-    -- ('Guard', 300000, 2),
-    -- ('Center', 25500000, 2),
-    -- ('Forward', 38000000, 2),
-    -- ('Coach', 4000000, 2),
-    -- ('Guard', 4500000, 3),
-    -- ('Center', 26000000, 3),
-    -- ('Forward', 3300000, 3),
-    -- ('Coach', 2500000, 3);

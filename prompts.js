@@ -1,16 +1,8 @@
 //route to server.js and write prompts here for nodejs
 
-const inquirer = require('inquirer');
+
 const db = require('./db');
 
-async function viewOnlyTeams() {
-    const titles = await db.viewOnlyTeams().catch(err => console.log(err));
-    return titles 
-};
-async function viewOnlyRoles() {
-    const titles = await db.viewOnlyRoles().catch(err => console.log(err));
-    return titles 
-};
 
 module.exports = {
     mainPrompt: [
@@ -36,7 +28,12 @@ module.exports = {
         type: 'input',
         message: 'Input name of new team.',
         name: 'newTeamName'
-        }
+        },
+        // {
+        // type: 'input',
+        // message: 'Input id of new team.',
+        // name: 'newTeamID'
+        // }
     ],
     newRolePrompt: [
         {
@@ -46,8 +43,8 @@ module.exports = {
         },
         {
         type: 'input',
-        message: 'Input id of team.',
-        name: 'newRoleTeamID'
+        message: 'Input id of new team id.',
+        name: 'newTeamID'
         }
     ],
     //LIST CHOICES FOR TEAMS AND ROLES (FUNCTION?)
@@ -63,22 +60,25 @@ module.exports = {
         name: 'newLastName'
         },
         {
+            type: 'list',
+            message: 'What is the new employees team?',
+            name: 'newTeam',
+            choice: [
+                 
+            ]
+        },
+        {
         type: 'list',
         message: 'What is the new employees role?',
         name: 'newRole',
         choices: [
-            //function?
             
         ]
         },
         {
-        type: 'list',
-        message: 'What is the new employees team?',
-        name: 'newTeam',
-        choice: [
-            //function?
-            
-        ]
+        type: 'input',
+        message: 'What is the new employees role id?',
+        name: 'newRoleID'
         },
         {
         type: 'input',
@@ -88,27 +88,20 @@ module.exports = {
     ],
     updateRolePrompt: [
         {
-        type: 'input',
+        type: 'list',
         message: 'Input the employees ID whose role ID you wish to edit.',
         name: 'chosenID',
+        choices: [
+
+        ]
         }, 
         {
-        type: 'input',
+        type: 'list',
         message: 'Input the employees new role ID.',
         name: 'updatedRoleID',
+        choices: [
+
+        ]
         } 
     ]
 };
-
-//pseudo code
-
-// {
-//     type: 'input',
-//     message: 'Input the salary of the new role.',
-//     name: 'newRoleSalary',
-//     },
-//     {
-//     type: 'input',
-//     message: 'Input the team ID of the new role.',
-//     name: 'newRoleID',
-//     }

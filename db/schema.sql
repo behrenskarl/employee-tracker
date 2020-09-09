@@ -31,14 +31,3 @@ CREATE TABLE employee(
     CONSTRAINT fk_employee FOREIGN KEY (manager_id)
     REFERENCES employee(id) ON DELETE CASCADE
 );
-
---PSUEDO CODE--
--- CREATE TABLE role(
---     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
---     title VARCHAR(30) NOT NULL,
---     salary INT NOT NULL,
---     team_id INT UNSIGNED NOT NULL,
---     INDEX team_id (team_id),
---     CONSTRAINT fk_team FOREIGN KEY (team_id)
---     REFERENCES team(id) ON DELETE CASCADE 
--- );
